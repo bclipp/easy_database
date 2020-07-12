@@ -1,3 +1,7 @@
+"""
+This is the file used for creating the package
+"""
+
 import os.path
 from setuptools import setup
 
@@ -5,7 +9,7 @@ from setuptools import setup
 HERE = os.path.abspath(os.path.dirname(__file__))
 
 # The text of the README file
-with open(os.posath.join(HERE, "README.md")) as fid:
+with open("README.md") as fid:
     README = fid.read()
 
 # This call to setup() does all the work
