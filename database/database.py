@@ -1,7 +1,7 @@
 import pandas as pd
 import psycopg2
 import psycopg2.extras
-import modules.sql as sql
+import sql as sql
 
 
 class DatabaseManager:
