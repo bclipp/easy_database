@@ -1,1 +1,1 @@
-### EasyDB
+### easy_database
