@@ -79,6 +79,8 @@ class DatabaseManager:
         :param conflict_id:
         :return:
         """
+        check_data_frame(data_frame)
+        check_string(table_name)
         try:
             if not data_frame.empty:
                 data_frame_columns = list(data_frame)
@@ -113,6 +115,7 @@ class DatabaseManager:
         :param sql_query: SQL statement
         :return:
         """
+        check_data_frame(data_frame)
         for i in range(len(data_frame)):
             row = data_frame.iloc[i]
             print(row)
@@ -127,6 +130,12 @@ class NotStr(Exception):
     """
 
 
+class NotDataFrame(Exception):
+    """
+    This is used for a custom Exception
+    """
+
+
 def check_query(sql_query: str):
     """
     check_query is used to perform checks against the sql query
@@ -135,3 +144,23 @@ def check_query(sql_query: str):
     """
     if not isinstance(sql_query, str):
         raise NotStr("Query must be a valid string")
+
+
+def check_string(string: str):
+    """
+    check_string is used to perform checks against the sql query
+    :param string: SQL statement.
+    :return:
+    """
+    if not isinstance(string, str):
+        raise NotStr("input must be a valid string")
+
+
+def check_data_frame(data_frame: pd.DataFrame):
+    """
+     check_data_frame is used to perform checks against the dataframe provided
+    :param data_frame:
+    :return:
+    """
+    if not isinstance(data_frame, pd.DataFrame):
+        raise NotDataFrame("Query must be a valid DataFrame")
