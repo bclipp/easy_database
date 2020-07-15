@@ -11,6 +11,7 @@ class DatabaseManager:
     The databaseManager takes a connection string and will allow you to
     interact with the database in an abstract way.
     """
+
     def __init__(self, connection_string):
         self.connection_string = connection_string
         self.conn = None
@@ -57,6 +58,8 @@ class DatabaseManager:
         send_sql is used when a result from the query is not needed.
         :param sql_query: SQL
         """
+        if not isinstance(sql_query, str):
+            raise NotStr("Query must be a valid string")
         try:
             self.cursor.execute(sql_query)
         except psycopg2.DatabaseError as error:
@@ -111,3 +114,9 @@ class DatabaseManager:
         for i in range(len(data_frame)):
             row = data_frame.iloc[i]
             self.send_sql(sql_query, row)
+
+
+class NotStr(Exception):
+    """
+    This is used for a custom Exception
+    """
