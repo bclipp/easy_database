@@ -25,10 +25,12 @@ jobs:
       run: |
         # stop the build if pylint is 10 for everything
         pylint easydb
+        pylint tests
     - name: Lint with mypy
       run: |
         # stop the build if pylint is 10 for everything
         mypy easydb
+        mypy tests
     - name: Unit Test with pytest
       run: |
         pytest tests
