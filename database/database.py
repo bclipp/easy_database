@@ -1,9 +1,13 @@
 """
 This modules holds Database manager related code
 """
-import pandas as pd
+from typing import Callable
+
+
 import psycopg2
 import psycopg2.extras
+import pandas as pd
+
 
 
 class DatabaseManager:
@@ -104,7 +108,7 @@ class DatabaseManager:
 
     def update_df(self,
                   data_frame: pd.DataFrame,
-                  sql_query: str):
+                  sql_query_function: Callable):
         """
         update table row by row
         :param data_frame: data to insert
@@ -113,7 +117,10 @@ class DatabaseManager:
         """
         for i in range(len(data_frame)):
             row = data_frame.iloc[i]
-            self.send_sql(sql_query, row)
+            print(row)
+            print(self.cursor)
+            sql_query_function()
+            #  self.send_sql(sql_query, row)
 
 
 class NotStr(Exception):
