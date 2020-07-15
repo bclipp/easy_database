@@ -48,6 +48,7 @@ class DatabaseManager:
         :param sql_query: SQL statement
         :return: the output of the query
         """
+        check_query(sql_query)
         try:
             self.cursor.execute(sql_query)
         except psycopg2.DatabaseError as error:
@@ -60,8 +61,7 @@ class DatabaseManager:
         send_sql is used when a result from the query is not needed.
         :param sql_query: SQL
         """
-        if not isinstance(sql_query, str):
-            raise NotStr("Query must be a valid string")
+        check_query(sql_query)
         try:
             self.cursor.execute(sql_query)
         except psycopg2.DatabaseError as error:
@@ -125,3 +125,13 @@ class NotStr(Exception):
     """
     This is used for a custom Exception
     """
+
+
+def check_query(sql_query: str):
+    """
+    check_query is used to perform checks against the sql query
+    :param sql_query: SQL statement.
+    :return:
+    """
+    if not isinstance(sql_query, str):
+        raise NotStr("Query must be a valid string")
