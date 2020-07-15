@@ -3,17 +3,15 @@ This modules holds Database manager related code
 """
 from typing import Callable
 
-
 import psycopg2
 import psycopg2.extras
 import pandas as pd
 
 
-
 class DatabaseManager:
     """
     The databaseManager takes a connection string and will allow you to
-    interact with the database in an abstract way.
+    interact with the easydb in an abstract way.
     """
 
     def __init__(self, connection_string):
@@ -23,7 +21,7 @@ class DatabaseManager:
 
     def connect_db(self):
         """
-        connect_db will setup a connection to the database
+        connect_db will setup a connection to the easydb
         """
         connection_string = self.connection_string
         try:

@@ -1,15 +1,15 @@
 """
-This module is used to test the database module
+This module is used to test the easydb module
 """
 
 from unittest.mock import Mock
 
-from database import database as db
+import easydb.database as db
 
 
 def test_database_manager_send_sql_string():
     """
-    This test is to verify the send_sql method works functionally without a database.
+    This test is to verify the send_sql method works functionally without a easydb.
     """
     database_manager = db.DatabaseManager("this is a test string")
     database_manager.cursor = Mock()
@@ -29,4 +29,3 @@ def test_database_manager_send_sql_not_string():
         database_manager.send_sql(1)
     except db.NotStr:
         assert True
-

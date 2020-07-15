@@ -28,10 +28,10 @@ setup(
         "Programming Language :: Python",
         "Programming Language :: Python :: 3",
     ],
-    packages=["database"],
+    packages=["easydb"],
     include_package_data=False,
     install_requires=[
         "pandas", "psycopg2"
     ],
-    entry_points={"console_scripts": ["easy_database=database.__main__:main"]},
+    entry_points={"console_scripts": ["easy_database=easydb.__main__:main"]},
 )
