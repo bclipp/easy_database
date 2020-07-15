@@ -12,7 +12,7 @@ def test_database_manager_send_sql():
     This test is to verify the send_sql method works functionally without a database.
     """
     database_manager = db.DatabaseManager("this is a test string")
-    database_manager.conn = Mock()
-    # add methods needed
+    database_manager.cursor = Mock()
+    database_manager.cursor.return_value.execute = [1, 2, 3, 4, 5]
     database_manager.send_sql("this is sql")
-    # verify called
+    assert database_manager.cursor.execute.call_count == 1
