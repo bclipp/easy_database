@@ -1,31 +1,29 @@
+"""
+This modules holds Database manager related code
+"""
 import pandas as pd
 import psycopg2
 import psycopg2.extras
-import sql as sql
 
 
 class DatabaseManager:
-
-    def __init__(self, config):
-        self.config = config
+    """
+    The databaseManager takes a connection string and will allow you to
+    interact with the database in an abstract way.
+    """
+    def __init__(self, connection_string):
+        self.connection_string = connection_string
         self.conn = None
         self.cursor = None
 
     def connect_db(self):
-        config = self.config
-        user = config["postgres_user"]
-        password = config["postgres_password"]
-        host = config["db_ip_address"]
-        port = config["port"]
-        database = config["postgres_db"]
+        """
+        connect_db will setup a connection to the database
+        """
+        connection_string = self.connection_string
         try:
-            conn = psycopg2.connect(
-                user=user,
-                password=password,
-                host=host,
-                database=database,
-                port=port,
-                cursor_factory=psycopg2.extras.RealDictCursor)
+            conn = psycopg2.connect(connection_string,
+                                    cursor_factory=psycopg2.extras.RealDictCursor)
 
         except psycopg2.DatabaseError as error:
             self.conn.rollback()
@@ -34,8 +32,19 @@ class DatabaseManager:
         self.conn = conn
         self.conn.autocommit = True
 
-    def receive_sql_fetchall(self, sql_query: str) -> pd.DataFrame:
+    def close_conn(self):
+        """
+        close_conn will close the connection created with connect_db
+        """
+        self.cursor.close()
 
+    def receive_sql_fetchall(self, sql_query: str) -> list:
+        """
+        receive_sql_fetchall takes a sql query and returns a
+        list of dictionaries.
+        :param sql_query: SQL statement
+        :return: the output of the query
+        """
         try:
             self.cursor.execute(sql_query)
         except psycopg2.DatabaseError as error:
@@ -43,16 +52,28 @@ class DatabaseManager:
             raise error
         return self.cursor.fetchall()
 
-    def send_sql(self, sql_query: str) -> pd.DataFrame:
-
+    def send_sql(self, sql_query: str):
+        """
+        send_sql is used when a result from the query is not needed.
+        :param sql_query: SQL
+        """
         try:
             self.cursor.execute(sql_query)
         except psycopg2.DatabaseError as error:
             self.conn.rollback()
             raise error
 
-    def df_insert(self, data_frame: pd.DataFrame, table: str, conflict_id: str = None):
-
+    def df_insert(self,
+                  data_frame: pd.DataFrame,
+                  table_name: str,
+                  conflict_id: str = None):
+        """
+        df_insert is used to insert data in a dataframe into a table in bulk
+        :param data_frame: data to insert
+        :param table_name: the table to update
+        :param conflict_id:
+        :return:
+        """
         try:
             if not data_frame.empty:
                 data_frame_columns = list(data_frame)
@@ -62,13 +83,13 @@ class DatabaseManager:
                 )
                 if conflict_id:
                     insert_query = "INSERT INTO {} ({}) {} ON CONFLICT ({}) DO NOTHING;" \
-                        .format(table,
+                        .format(table_name,
                                 columns,
                                 values,
                                 conflict_id)
                 else:
                     insert_query = "INSERT INTO {} ({}) {};" \
-                        .format(table,
+                        .format(table_name,
                                 columns,
                                 values)
                 psycopg2.extras.execute_batch(
@@ -78,12 +99,15 @@ class DatabaseManager:
             self.conn.rollback()
             raise error
 
-    def close_conn(self):
-
-        self.cursor.close()
-
-    def update_df(self, data_frame: pd.DataFrame, table: str):
-
+    def update_df(self,
+                  data_frame: pd.DataFrame,
+                  sql_query: str):
+        """
+        update table row by row
+        :param data_frame: data to insert
+        :param sql_query: SQL statement
+        :return:
+        """
         for i in range(len(data_frame)):
             row = data_frame.iloc[i]
-            self.send_sql(sql.update_table(table, row))
+            self.send_sql(sql_query, row)

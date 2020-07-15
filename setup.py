@@ -15,7 +15,7 @@ with open("README.md") as fid:
 # This call to setup() does all the work
 setup(
     name="easy_database",
-    version="1.0.0",
+    version="1.0.1",
     description="abstraction for ETL Database interaction",
     long_description=README,
     long_description_content_type="text/markdown",
