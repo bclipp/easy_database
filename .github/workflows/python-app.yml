@@ -17,15 +17,18 @@ jobs:
       uses: actions/setup-python@v2
       with:
         python-version: 3.8
+
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
         if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+
     - name: Lint with pylint
       run: |
         # stop the build if pylint is 10 for everything
         pylint easydb
         pylint tests
+
     - name: Lint with mypy
       run: |
         # stop the build if pylint is 10 for everything
@@ -34,6 +37,16 @@ jobs:
     - name: Unit Test with pytest
       run: |
         pytest tests
+
+    - name: Build the stack
+      run: /docker/docker-compose up -d
+
+    - name: Intergration Test with pytest
+      run: |
+         pytest python/app/tests
+      env:
+        INTERGRATION_TEST: True
+
     - name: PyCharm Python Security Scanner
       uses: tonybaloney/pycharm-security@1.20.1
     

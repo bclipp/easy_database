@@ -10,13 +10,14 @@ This module is used for integration tests to verify functionality with the postg
 
 import pandas as pd
 
-import easydb.database as db
+from easydb import database as db, utils
 
 
 def test_connect_disconnect():
     """
     test_connect_disconnect to verify the send_sql method works functionally without a easydb.
     """
+    utils.check_integration_test()
     dbvars = set_db_variables()
     hostname = dbvars["hostname"]
     database = dbvars["database"]
@@ -33,6 +34,7 @@ def test_receive_sql_fetchall():
     """
     test_receive_sql_fetchall is to verify the send_sql method works functionally without a easydb.
     """
+    utils.check_integration_test()
     dbvars = set_db_variables()
     hostname = dbvars["hostname"]
     database = dbvars["database"]
@@ -52,6 +54,7 @@ def test_send_sql():
     """
     test_send_sql is to verify the send_sql method works functionally without a easydb.
     """
+    utils.check_integration_test()
     dbvars = set_db_variables()
     hostname = dbvars["hostname"]
     database = dbvars["database"]
@@ -70,6 +73,7 @@ def test_df_insert():
     """
     test_df_insert is to verify the send_sql method works functionally without a easydb.
     """
+    utils.check_integration_test()
     dbvars = set_db_variables()
     hostname = dbvars["hostname"]
     database = dbvars["database"]
