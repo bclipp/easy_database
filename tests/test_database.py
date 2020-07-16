@@ -10,7 +10,7 @@ import pandas as pd
 import easydb.database as db
 
 
-def test_send_sql_string():
+def test_send_sql():
     """
     This test is to verify the send_sql method works functionally without a easydb.
     """
