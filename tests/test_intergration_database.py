@@ -90,7 +90,8 @@ def test_df_insert():
                                'state_fips': [1, 2, 3, 4],
                                'state_code': ['brian', 'john', 'mary', 'same'],
                                'block_pop': [1, 2, 3, 4]
-                               }, columns=['first_name',
+                               }, columns=["id"
+                                           'first_name',
                                            'last_name',
                                            "email",
                                            "latitude",
