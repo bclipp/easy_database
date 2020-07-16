@@ -38,6 +38,7 @@ def test_receive_sql_fetchall():
     database = dbvars["database"]
     username = dbvars["username"]
     password = dbvars["password"]
+    table = dbvars["table"]
     connection_string: str = \
         f"postgresql://{hostname}/{database}?user={username}&password={password}"
     database_manager = db.DatabaseManager(connection_string)
@@ -104,6 +105,10 @@ def test_df_insert():
 
 
 def set_db_variables():
+    """
+    set_db_variables is used to provide the credentials to the integration postgresql database.
+    :return:
+    """
     dbvars = {"username": "testing1234",
               "password": "testing1234",
               "hostname": "127.0.0.1",
