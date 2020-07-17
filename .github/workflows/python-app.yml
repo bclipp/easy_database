@@ -43,7 +43,7 @@ jobs:
       
     - name: Intergration Test with pytest
       run: |
-         pytest python/app/tests
+         pytest tests
       env:
         INTEGRATION_TEST: True
         POSTGRES_PASSWORD: testing1234
