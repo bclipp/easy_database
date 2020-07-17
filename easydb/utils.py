@@ -11,10 +11,6 @@ class ConfigVars(TypedDict):
     """
     Used to define the dict types in a strict way.
     """
-    db_ip_address: str
-    postgres_db: str
-    postgres_user: str
-    postgres_password: str
     integration_test: Optional[str]
 
 
