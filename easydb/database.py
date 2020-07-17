@@ -106,20 +106,6 @@ class DatabaseManager:
             self.conn.rollback()
             raise error
 
-    def update_df(self,
-                  data_frame: pd.DataFrame,
-                  sql_query_function: Callable):
-        """
-        update table row by row
-        :param data_frame: data to insert
-        :param sql_query_function: function that will return a sql statement when passed a row.
-        :return:
-        """
-        check_data_frame(data_frame)
-        for i in range(len(data_frame)):
-            row = data_frame.iloc[i]
-            sql_query: str = sql_query_function(row)
-            self.send_sql(sql_query)
 
 
 class NotStr(Exception):
