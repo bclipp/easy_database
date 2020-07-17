@@ -10,7 +10,7 @@ This module is used for integration tests to verify functionality with the postg
 
 import pandas as pd
 
-from easydb import database as db, utils
+from easy_database import database as db, utils
 
 
 def test_connect_disconnect():

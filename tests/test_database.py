@@ -7,7 +7,7 @@ from unittest.mock import patch
 
 import pandas as pd
 
-import easydb.database as db
+import easy_database.database as db
 
 
 def test_send_sql():

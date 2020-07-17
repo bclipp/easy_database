@@ -15,7 +15,7 @@ with open("README.md") as fid:
 # This call to setup() does all the work
 setup(
     name="easy_database",
-    version="1.0.1",
+    version="1.1.0",
     description="abstraction for ETL Database interaction",
     long_description=README,
     long_description_content_type="text/markdown",
@@ -28,7 +28,7 @@ setup(
         "Programming Language :: Python",
         "Programming Language :: Python :: 3",
     ],
-    packages=["easydb"],
+    packages=["easy_database"],
     include_package_data=False,
     install_requires=[
         "pandas", "psycopg2"

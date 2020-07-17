@@ -40,7 +40,7 @@ jobs:
 
     - name: Build the stack
       run: docker-compose up -d
-      
+
     - name: Intergration Test with pytest
       run: |
          pytest python/app/tests
