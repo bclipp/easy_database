@@ -45,7 +45,11 @@ jobs:
       run: |
          pytest python/app/tests
       env:
-        INTERGRATION_TEST: True
+        INTEGRATION_TEST: True
+        POSTGRES_PASSWORD: testing1234
+        POSTGRES_USER: testing1234
+        POSTGRES_DB: testing1234
+        DB_IP_ADDRESS: 127.0.0.1
 
     - name: PyCharm Python Security Scanner
       uses: tonybaloney/pycharm-security@1.20.1

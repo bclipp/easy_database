@@ -1,7 +1,6 @@
 """
 This modules holds Database manager related code
 """
-from typing import Callable
 
 import psycopg2
 import psycopg2.extras
