@@ -39,7 +39,7 @@ jobs:
         pytest tests
 
     - name: Build the stack
-      run: /docker/docker-compose up -d
+      run: docker/docker-compose up -d
 
     - name: Intergration Test with pytest
       run: |
