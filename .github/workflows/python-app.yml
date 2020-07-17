@@ -39,8 +39,8 @@ jobs:
         pytest tests
 
     - name: Build the stack
-      run: docker-compose up -d --config docker/docker-compose.yml
-
+      run: docker-compose up -d
+      
     - name: Intergration Test with pytest
       run: |
          pytest python/app/tests
