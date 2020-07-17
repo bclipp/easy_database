@@ -23,7 +23,7 @@ def get_variables() -> ConfigVars:
     get_variables is used to access environmental variables
     :return:
     """
-    try
+    try:
         integration_test = os.environ.get('INTEGRATION_TEST', default=None)
     except KeyError:
         raise KeyError("Please verify that the needed env variables are set")
