@@ -14,7 +14,7 @@ class DatabaseManager(ABC):
     """
 
     @abstractmethod
-    def open_db(self):
+    def open_conn(self):
         """
         creates the database conneciton
         :return:
@@ -56,6 +56,14 @@ class DatabaseManager(ABC):
         :return:
         """
 
+    @abstractmethod
+    def set_connection_string(self, connection_string):
+        """
+        used for setting the conneciton string
+        :param connection_string:
+        :return:
+        """
+
 
 class PostgreSQLManger(DatabaseManager):
     """
@@ -63,12 +71,16 @@ class PostgreSQLManger(DatabaseManager):
     interact with the database in an abstract way.
     """
 
-    def __init__(self, connection_string):
-        self.connection_string = connection_string
+    def __init__(self):
+        self.connection_string = None
         self.conn = None
         self.cursor = None
 
-    def open_db(self):
+    def set_connection_string(self, connection_string):
+        """set's the connection string"""
+        self.connection_string = connection_string
+
+    def open_conn(self):
         """
         connect_db will setup a connection to the easydb
         """

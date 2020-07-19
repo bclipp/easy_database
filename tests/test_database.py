@@ -14,7 +14,8 @@ def test_send_sql():
     """
     This test is to verify the send_sql method works functionally without a easydb.
     """
-    database_manager = db.DatabaseManager("this is a test string")
+    database_manager: db.DatabaseManager = db.PostgreSQLManger()
+    database_manager.set_connection_string("this is a test string")
     database_manager.cursor = Mock()
     database_manager.cursor.return_value.execute = [1, 2, 3, 4, 5]
     database_manager.send_sql("this is sql")
@@ -25,7 +26,8 @@ def test_send_sql_not_string():
     """
     This test is to verify the send_sql can handle bad inputs
     """
-    database_manager = db.DatabaseManager("this is a test string")
+    database_manager: db.DatabaseManager = db.PostgreSQLManger()
+    database_manager.set_connection_string("this is a test string")
     database_manager.cursor = Mock()
     database_manager.cursor.return_value.execute = [1, 2, 3, 4, 5]
     try:
@@ -39,7 +41,8 @@ def test_receive_sql_fetchall():
         This test is to verify the test_receive_sql_fetchall
         method works functionally without a easydb.
     """
-    database_manager = db.DatabaseManager("this is a test string")
+    database_manager: db.DatabaseManager = db.PostgreSQLManger()
+    database_manager.set_connection_string("this is a test string")
     database_manager.cursor = Mock()
     database_manager.cursor.return_value.execute = [1, 2, 3, 4, 5]
     database_manager.receive_sql_fetchall("this is sql")
@@ -50,7 +53,8 @@ def test_receive_sql_fetchall_not_string():
     """
     This test is to verify the test_receive_sql_fetchall can handle bad inputs
     """
-    database_manager = db.DatabaseManager("this is a test string")
+    database_manager: db.DatabaseManager = db.PostgreSQLManger()
+    database_manager.set_connection_string("this is a test string")
     database_manager.cursor = Mock()
     database_manager.cursor.return_value.execute = [1, 2, 3, 4, 5]
     try:
@@ -65,7 +69,8 @@ def test_df_insert(mock_execute_batch):
         This test is to verify the df_insert
         method works functionally without a easydb.
     """
-    database_manager = db.DatabaseManager("this is a test string")
+    database_manager: db.DatabaseManager = db.PostgreSQLManger()
+    database_manager.set_connection_string("this is a test string")
     database_manager.cursor = Mock()
     database_manager.cursor.return_value.execute = [1, 2, 3, 4, 5]
     data_frame = pd.DataFrame({'Brand': ['Honda Civic', 'Toyota Corolla', 'Ford Focus', 'Audi A4'],
@@ -79,7 +84,8 @@ def test_df_insert_not_df():
     """
     This test is to verify the df_insert can handle bad inputs
     """
-    database_manager = db.DatabaseManager("this is also a test string")
+    database_manager: db.DatabaseManager = db.PostgreSQLManger()
+    database_manager.set_connection_string("this is a test string")
     database_manager.cursor = Mock()
     database_manager.cursor.return_value.execute = [1, 2, 3, 4, 5]
     data_frame = "I am not a dataframe"
@@ -93,7 +99,8 @@ def test_df_insert_table_not_string():
     """
     This test is to verify the df_insert can handle bad input for table
     """
-    database_manager = db.DatabaseManager("this is also a test string")
+    database_manager: db.DatabaseManager = db.PostgreSQLManger()
+    database_manager.set_connection_string("this is a test string")
     database_manager.cursor = Mock()
     database_manager.cursor.return_value.execute = [1, 2, 3, 4, 5]
     data_frame = pd.DataFrame({'Brand': ['Honda Civic', 'Toyota Corolla', 'Ford Focus', 'Audi A4'],
