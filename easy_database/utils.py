@@ -54,5 +54,5 @@ def database_factory(database_type: str,
     :return:
     """
     if database_type == " postgresql":
-        return db.DatabaseManager(connection_string)
+        return db.PostgreSQLManger(connection_string)
     raise BadDatabaseType("The Database is not currently supported.")
