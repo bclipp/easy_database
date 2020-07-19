@@ -1,16 +1,66 @@
 """
 This modules holds Database manager related code
 """
+from abc import ABC, abstractmethod
 
 import psycopg2
 import psycopg2.extras
 import pandas as pd
 
 
-class DatabaseManager:
+class Database(ABC):
     """
-    The databaseManager takes a connection string and will allow you to
-    interact with the easydb in an abstract way.
+    Database is a abc or a interface for refering to all the database managers
+    """
+
+    @abstractmethod
+    def open_db(self):
+        """
+        creates the database conneciton
+        :return:
+        """
+
+    @abstractmethod
+    def close_conn(self):
+        """
+        closes the database conneciton
+        :return:
+        """
+
+    @abstractmethod
+    def receive_sql_fetchall(self, sql_query: str):
+        """
+        send sql and get a list of dict
+        :param sql_query:
+        :return:
+        """
+
+    @abstractmethod
+    def send_sql(self, sql_query: str):
+        """
+        send SQL with not returned result
+        :param sql_query:
+        :return:
+        """
+
+    @abstractmethod
+    def df_insert(self,
+                  data_frame: pd.DataFrame,
+                  table_name: str,
+                  conflict_id: str = None):
+        """
+        used for taking a database and inserting it into a table
+        :param data_frame:
+        :param table_name:
+        :param conflict_id:
+        :return:
+        """
+
+
+class PostgreSQLManger(Database):
+    """
+    The PostgreSQLManger takes a connection string and will allow you to
+    interact with the database in an abstract way.
     """
 
     def __init__(self, connection_string):
@@ -18,7 +68,7 @@ class DatabaseManager:
         self.conn = None
         self.cursor = None
 
-    def connect_db(self):
+    def open_db(self):
         """
         connect_db will setup a connection to the easydb
         """
@@ -106,16 +156,15 @@ class DatabaseManager:
             raise error
 
 
-
 class NotStr(Exception):
     """
-    This is used for a custom Exception
+    NotStr is used for a custom Exception
     """
 
 
 class NotDataFrame(Exception):
     """
-    This is used for a custom Exception
+    NotDataFrame is used for a custom Exception
     """
 
 
