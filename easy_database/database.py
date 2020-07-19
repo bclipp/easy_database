@@ -8,7 +8,7 @@ import psycopg2.extras
 import pandas as pd
 
 
-class Database(ABC):
+class DatabaseManager(ABC):
     """
     Database is a abc or a interface for refering to all the database managers
     """
@@ -57,7 +57,7 @@ class Database(ABC):
         """
 
 
-class PostgreSQLManger(Database):
+class PostgreSQLManger(DatabaseManager):
     """
     The PostgreSQLManger takes a connection string and will allow you to
     interact with the database in an abstract way.
