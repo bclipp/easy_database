@@ -6,6 +6,8 @@ from typing import TypedDict, Optional
 
 import pytest
 
+import easy_database.database as db
+
 
 class ConfigVars(TypedDict):
     """
@@ -35,3 +37,22 @@ def check_integration_test():
     config: ConfigVars = get_variables()
     if config.get("integration_test") is None:
         pytest.skip("Not an Integration Test")
+
+
+class BadDatabaseType(Exception):
+    """
+    This is used for a custom Exception
+    """
+
+
+def database_factory(database_type: str,
+                     connection_string: str) -> db.DatabaseManager:
+    """
+
+    :param database_type:
+    :param connection_string:
+    :return:
+    """
+    if database_type == " postgresql":
+        return db.DatabaseManager(connection_string)
+    raise BadDatabaseType("The Database is not currently supported.")
