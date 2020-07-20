@@ -33,5 +33,5 @@ setup(
     install_requires=[
         "pandas", "psycopg2"
     ],
-    entry_points={"console_scripts": ["easy_database=easydb.__main__:main"]},
+    entry_points={"console_scripts": ["easy_database=easy_database.__main__:main"]},
 )
