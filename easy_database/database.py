@@ -57,10 +57,10 @@ class DatabaseManager(ABC):
         """
 
     @abstractmethod
-    def set_connection_string(self, connection_string):
+    def set_connection_data(self, set_connection_data: dict):
         """
         used for setting the conneciton string
-        :param connection_string:
+        :param set_connection_data:
         :return:
         """
 
@@ -76,17 +76,24 @@ class PostgreSQLManger(DatabaseManager):
         self.conn = None
         self.cursor = None
 
-    def set_connection_string(self, connection_string):
-        """set's the connection string"""
-        self.connection_string = connection_string
+    def set_connection_data(self, set_connection_data:str):
+        """set's the connection data"""
+        self.set_connection_data = set_connection_data
 
     def open_conn(self):
         """
         connect_db will setup a connection to the easydb
         """
-        connection_string = self.connection_string
+        set_connection_data = self.set_connection_data
+        database = set_connection_data["database"]
+        username = set_connection_data["username"]
+        db_ip_address = set_connection_data["db_ip_address"]
+        password = set_connection_data["password"]
         try:
-            conn = psycopg2.connect(connection_string,
+            conn = psycopg2.connect(dbname=database,
+                                    user=username,
+                                    host=db_ip_address,
+                                    password=password,
                                     cursor_factory=psycopg2.extras.RealDictCursor)
 
         except psycopg2.DatabaseError as error:

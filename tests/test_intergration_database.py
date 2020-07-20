@@ -19,14 +19,8 @@ def test_postgresqlmanager_connect_disconnect():
     """
     utils.check_integration_test()
     dbvars = utils.get_variables()
-    hostname = dbvars["hostname"]
-    database = dbvars["database"]
-    username = dbvars["username"]
-    password = dbvars["password"]
-    connection_string: str = \
-        f"postgresql://{hostname}/{database}?user={username}&password={password}"
     database_manager = db.PostgreSQLManger()
-    database_manager.set_connection_string(connection_string)
+    database_manager.set_connection_data(dbvars)
     database_manager.open_conn()
     database_manager.close_conn()
 
@@ -37,18 +31,12 @@ def test_postgresqlmanager_receive_sql_fetchall():
     """
     utils.check_integration_test()
     dbvars = utils.get_variables()
-    hostname = dbvars["hostname"]
-    database = dbvars["database"]
-    username = dbvars["username"]
-    password = dbvars["password"]
-    table = dbvars["table"]
-    connection_string: str = \
-        f"postgresql://{hostname}/{database}?user={username}&password={password}"
     database_manager = db.PostgreSQLManger()
-    database_manager.set_connection_string(connection_string)
+    database_manager.set_connection_data(dbvars)
     database_manager.open_conn()
+    table = dbvars["table"]
     data_frame: list = database_manager.receive_sql_fetchall(f"SELECT * FROM {table};")
-    print(data_frame)
+    print(data_frame.head())
     database_manager.close_conn()
 
 
@@ -58,16 +46,10 @@ def test_postgresqlmanager_send_sql():
     """
     utils.check_integration_test()
     dbvars = utils.get_variables()
-    hostname = dbvars["hostname"]
-    database = dbvars["database"]
-    username = dbvars["username"]
-    password = dbvars["password"]
-    table = dbvars["table"]
-    connection_string: str = \
-        f"postgresql://{hostname}/{database}?user={username}&password={password}"
     database_manager = db.PostgreSQLManger()
-    database_manager.set_connection_string(connection_string)
+    database_manager.set_connection_data(dbvars)
     database_manager.open_conn()
+    table = dbvars["table"]
     database_manager.send_sql(f"SELECT * FROM {table};")
     database_manager.close_conn()
 
@@ -78,15 +60,9 @@ def test_postgresqlmanager_df_insert_no_conflict():
     """
     utils.check_integration_test()
     dbvars = utils.get_variables()
-    hostname = dbvars["hostname"]
-    database = dbvars["database"]
-    username = dbvars["username"]
-    password = dbvars["password"]
-    table = dbvars["table"]
-    connection_string: str = \
-        f"postgresql://{hostname}/{database}?user={username}&password={password}"
     database_manager = db.PostgreSQLManger()
-    database_manager.set_connection_string(connection_string)
+    database_manager.set_connection_data(dbvars)
+    table = dbvars["table"]
     database_manager.open_conn()
     data_frame = pd.DataFrame({"id": [7000, 8000, 9000, 10000],
                                'first_name': ['brian', 'john', 'mary', 'same'],
@@ -98,7 +74,7 @@ def test_postgresqlmanager_df_insert_no_conflict():
                                'state_fips': [1, 2, 3, 4],
                                'state_code': ['brian', 'john', 'mary', 'same'],
                                'block_pop': [1, 2, 3, 4]
-                               }, columns=["id"
+                               }, columns=["id",
                                            'first_name',
                                            'last_name',
                                            "email",
@@ -119,15 +95,9 @@ def test_postgresqlmanager_df_insert_conflict():
     """
     utils.check_integration_test()
     dbvars = utils.get_variables()
-    hostname = dbvars["hostname"]
-    database = dbvars["database"]
-    username = dbvars["username"]
-    password = dbvars["password"]
-    table = dbvars["table"]
-    connection_string: str = \
-        f"postgresql://{hostname}/{database}?user={username}&password={password}"
     database_manager = db.PostgreSQLManger()
-    database_manager.set_connection_string(connection_string)
+    database_manager.set_connection_data(dbvars)
+    table = dbvars["table"]
     database_manager.open_conn()
     data_frame = pd.DataFrame({"id": [7000, 8000, 9000, 10000],
                                'first_name': ['brian', 'john', 'mary', 'same'],
@@ -139,7 +109,7 @@ def test_postgresqlmanager_df_insert_conflict():
                                'state_fips': [1, 2, 3, 4],
                                'state_code': ['brian', 'john', 'mary', 'same'],
                                'block_pop': [1, 2, 3, 4]
-                               }, columns=["id"
+                               }, columns=["id",
                                            'first_name',
                                            'last_name',
                                            "email",

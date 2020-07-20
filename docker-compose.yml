@@ -1,12 +1,11 @@
-
 version: '3.3'
 services:
   postgres:
     image: postgres
     environment:
-      - POSTGRES_PASSWORD=testing1234
-      - POSTGRES_USER=testing1234
-      - POSTGRES_DB=testing1234
+      - POSTGRES_PASSWORD=${PASSWORD}
+      - POSTGRES_USER=${USER}
+      - POSTGRES_DB=${DATABASE}
     ports:
       - 5432:5432
     volumes:
