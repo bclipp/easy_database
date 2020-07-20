@@ -13,29 +13,30 @@ import pandas as pd
 from easy_database import database as db, utils
 
 
-def test_connect_disconnect():
+def test_postgresqlmanager_connect_disconnect():
     """
     test_connect_disconnect to verify the send_sql method works functionally without a easydb.
     """
     utils.check_integration_test()
-    dbvars = set_db_variables()
+    dbvars = utils.get_variables()
     hostname = dbvars["hostname"]
     database = dbvars["database"]
     username = dbvars["username"]
     password = dbvars["password"]
     connection_string: str = \
         f"postgresql://{hostname}/{database}?user={username}&password={password}"
-    database_manager = db.DatabaseManager(connection_string)
-    database_manager.connect_db()
+    database_manager = db.PostgreSQLManger()
+    database_manager.set_connection_string(connection_string)
+    database_manager.open_conn()
     database_manager.close_conn()
 
 
-def test_receive_sql_fetchall():
+def test_postgresqlmanager_receive_sql_fetchall():
     """
     test_receive_sql_fetchall is to verify the send_sql method works functionally without a easydb.
     """
     utils.check_integration_test()
-    dbvars = set_db_variables()
+    dbvars = utils.get_variables()
     hostname = dbvars["hostname"]
     database = dbvars["database"]
     username = dbvars["username"]
@@ -43,19 +44,20 @@ def test_receive_sql_fetchall():
     table = dbvars["table"]
     connection_string: str = \
         f"postgresql://{hostname}/{database}?user={username}&password={password}"
-    database_manager = db.DatabaseManager(connection_string)
-    database_manager.connect_db()
+    database_manager = db.PostgreSQLManger()
+    database_manager.set_connection_string(connection_string)
+    database_manager.open_conn()
     data_frame: list = database_manager.receive_sql_fetchall(f"SELECT * FROM {table};")
     print(data_frame)
     database_manager.close_conn()
 
 
-def test_send_sql():
+def test_postgresqlmanager_send_sql():
     """
     test_send_sql is to verify the send_sql method works functionally without a easydb.
     """
     utils.check_integration_test()
-    dbvars = set_db_variables()
+    dbvars = utils.get_variables()
     hostname = dbvars["hostname"]
     database = dbvars["database"]
     username = dbvars["username"]
@@ -63,18 +65,19 @@ def test_send_sql():
     table = dbvars["table"]
     connection_string: str = \
         f"postgresql://{hostname}/{database}?user={username}&password={password}"
-    database_manager = db.DatabaseManager(connection_string)
-    database_manager.connect_db()
+    database_manager = db.PostgreSQLManger()
+    database_manager.set_connection_string(connection_string)
+    database_manager.open_conn()
     database_manager.send_sql(f"SELECT * FROM {table};")
     database_manager.close_conn()
 
 
-def test_df_insert_no_conflict():
+def test_postgresqlmanager_df_insert_no_conflict():
     """
     test_df_insert_no_conflict is to verify the send_sql method works functionally without a easydb.
     """
     utils.check_integration_test()
-    dbvars = set_db_variables()
+    dbvars = utils.get_variables()
     hostname = dbvars["hostname"]
     database = dbvars["database"]
     username = dbvars["username"]
@@ -82,8 +85,9 @@ def test_df_insert_no_conflict():
     table = dbvars["table"]
     connection_string: str = \
         f"postgresql://{hostname}/{database}?user={username}&password={password}"
-    database_manager = db.DatabaseManager(connection_string)
-    database_manager.connect_db()
+    database_manager = db.PostgreSQLManger()
+    database_manager.set_connection_string(connection_string)
+    database_manager.open_conn()
     data_frame = pd.DataFrame({"id": [7000, 8000, 9000, 10000],
                                'first_name': ['brian', 'john', 'mary', 'same'],
                                'last_name': ['brian', 'john', 'mary', 'same'],
@@ -109,12 +113,12 @@ def test_df_insert_no_conflict():
     database_manager.close_conn()
 
 
-def test_df_insert_conflict():
+def test_postgresqlmanager_df_insert_conflict():
     """
     test_df_insert_conflict is to verify the send_sql method works functionally without a easydb.
     """
     utils.check_integration_test()
-    dbvars = set_db_variables()
+    dbvars = utils.get_variables()
     hostname = dbvars["hostname"]
     database = dbvars["database"]
     username = dbvars["username"]
@@ -122,8 +126,9 @@ def test_df_insert_conflict():
     table = dbvars["table"]
     connection_string: str = \
         f"postgresql://{hostname}/{database}?user={username}&password={password}"
-    database_manager = db.DatabaseManager(connection_string)
-    database_manager.connect_db()
+    database_manager = db.PostgreSQLManger()
+    database_manager.set_connection_string(connection_string)
+    database_manager.open_conn()
     data_frame = pd.DataFrame({"id": [7000, 8000, 9000, 10000],
                                'first_name': ['brian', 'john', 'mary', 'same'],
                                'last_name': ['brian', 'john', 'mary', 'same'],
@@ -152,7 +157,7 @@ def test_df_insert_conflict():
     database_manager.close_conn()
 
 
-def set_db_variables():
+def set_postgresqlmanager_db_variables():
     """
     set_db_variables is used to provide the credentials to the integration postgresql database.
     :return:

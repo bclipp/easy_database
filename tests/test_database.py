@@ -10,7 +10,7 @@ import pandas as pd
 import easy_database.database as db
 
 
-def test_send_sql():
+def test_postgresqlmanager_send_sql():
     """
     This test is to verify the send_sql method works functionally without a easydb.
     """
@@ -22,7 +22,7 @@ def test_send_sql():
     assert database_manager.cursor.execute.call_count == 1
 
 
-def test_send_sql_not_string():
+def test_postgresqlmanager_send_sql_not_string():
     """
     This test is to verify the send_sql can handle bad inputs
     """
@@ -36,7 +36,7 @@ def test_send_sql_not_string():
         assert True
 
 
-def test_receive_sql_fetchall():
+def test_postgresqlmanager_receive_sql_fetchall():
     """
         This test is to verify the test_receive_sql_fetchall
         method works functionally without a easydb.
@@ -49,7 +49,7 @@ def test_receive_sql_fetchall():
     assert database_manager.cursor.execute.call_count == 1
 
 
-def test_receive_sql_fetchall_not_string():
+def test_postgresqlmanager_receive_sql_fetchall_not_string():
     """
     This test is to verify the test_receive_sql_fetchall can handle bad inputs
     """
@@ -64,7 +64,7 @@ def test_receive_sql_fetchall_not_string():
 
 
 @patch("easydb.database.psycopg2.extras.execute_batch")
-def test_df_insert(mock_execute_batch):
+def test_postgresqlmanager_df_insert(mock_execute_batch):
     """
         This test is to verify the df_insert
         method works functionally without a easydb.
@@ -80,7 +80,7 @@ def test_df_insert(mock_execute_batch):
     assert mock_execute_batch.call_count == 1
 
 
-def test_df_insert_not_df():
+def test_postgresqlmanager_df_insert_not_df():
     """
     This test is to verify the df_insert can handle bad inputs
     """
@@ -95,7 +95,7 @@ def test_df_insert_not_df():
         assert True
 
 
-def test_df_insert_table_not_string():
+def test_postgresqlmanager_df_insert_table_not_string():
     """
     This test is to verify the df_insert can handle bad input for table
     """
