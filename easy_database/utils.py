@@ -13,6 +13,11 @@ class ConfigVars(TypedDict):
     """
     Used to define the dict types in a strict way.
     """
+    db_ip_address: str
+    postgres_db: str
+    postgres_user: str
+    postgres_password: str
+    table: str
     integration_test: Optional[str]
 
 
@@ -22,10 +27,20 @@ def get_variables() -> ConfigVars:
     :return:
     """
     try:
+        db_ip_address = os.environ['DB_IP_ADDRESS']
+        postgres_db = os.environ['POSTGRES_DB']
+        postgres_user = os.environ['POSTGRES_USER']
+        postgres_password = os.environ['POSTGRES_PASSWORD']
+        table = os.environ["TABLE"]
         integration_test = os.environ.get('INTEGRATION_TEST', default=None)
     except KeyError:
         raise KeyError("Please verify that the needed env variables are set")
-    return {"integration_test": integration_test}
+    return {"db_ip_address": db_ip_address,
+            "postgres_db": postgres_db,
+            "postgres_user": postgres_user,
+            "postgres_password": postgres_password,
+            "integration_test": integration_test,
+            "table": table}
 
 
 def check_integration_test():
@@ -35,7 +50,7 @@ def check_integration_test():
     :return:
     """
     config: ConfigVars = get_variables()
-    if config.get("integration_test") is None:
+    if config.get("INTEGRATION_TEST") is None:
         pytest.skip("Not an Integration Test")
 
 
