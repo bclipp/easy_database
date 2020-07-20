@@ -62,14 +62,12 @@ class BadDatabaseType(Exception):
     """
 
 
-def database_factory(database_type: str,
-                     connection_string: str) -> db.DatabaseManager:
+def database_factory(database_type: str) -> db.DatabaseManager:
     """
 
     :param database_type:
-    :param connection_string:
     :return:
     """
     if database_type == " postgresql":
-        return db.PostgreSQLManger(connection_string)
+        return db.PostgreSQLManger()
     raise BadDatabaseType("The Database is not currently supported.")
