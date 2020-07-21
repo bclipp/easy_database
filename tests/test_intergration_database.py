@@ -62,7 +62,7 @@ def test_postgresqlmanager_df_insert_no_conflict():
     dbvars = utils.get_variables()
     database_manager = db.PostgreSQLManger()
     database_manager.set_connection_data(dbvars)
-    table = dbvars["table"]
+    table = "test_customers"
     database_manager.open_conn()
     data_frame = pd.DataFrame({"id": [700000, 800000, 900000, 1000000],
                                'first_name': ['brian', 'john', 'mary', 'same'],
@@ -84,8 +84,10 @@ def test_postgresqlmanager_df_insert_no_conflict():
                                            "state_fips",
                                            "state_code",
                                            "block_pop"])
-    database_manager.df_insert(data_frame,
-                               table)
+        create_fake_table(database_manager)
+        database_manager.df_insert(data_frame,
+                                   table)
+        database_manager.send_sql("DROP TABLE test_customers;")
     database_manager.close_conn()
 
 
@@ -97,7 +99,7 @@ def test_postgresqlmanager_df_insert_conflict():
     dbvars = utils.get_variables()
     database_manager = db.PostgreSQLManger()
     database_manager.set_connection_data(dbvars)
-    table = dbvars["table"]
+    table = "test_customers"
     database_manager.open_conn()
     data_frame = pd.DataFrame({"id": [9000001, 800001, 2000001, 3000001],
                                'first_name': ['brian', 'john', 'mary', 'same'],
@@ -119,12 +121,35 @@ def test_postgresqlmanager_df_insert_conflict():
                                            "state_fips",
                                            "state_code",
                                            "block_pop"])
+    create_fake_table(database_manager)
     database_manager.df_insert(data_frame,
                                table)
     database_manager.df_insert(data_frame,
                                table,
                                conflict_id="id")
+    database_manager.send_sql("DROP TABLE test_customers;")
     database_manager.close_conn()
+
+
+def create_fake_table(database_manager: db.DatabaseManager):
+    """
+    used to setup table for tests
+    :return:
+    """
+    sql_query: str = """
+    CREATE TABLE test_customers (
+    id integer PRIMARY KEY,
+    first_name VARCHAR(255),
+    last_name  VARCHAR(255),
+    email  VARCHAR(255),
+    latitude FLOAT,
+    longitude FLOAT,
+    block_id BIGINT,
+    state_fips BIGINT,
+    state_code VARCHAR(10),
+    block_pop BIGINT);"""
+    database_manager.send_sql(sql_query)
+
 
 
 def set_postgresqlmanager_db_variables():
