@@ -85,11 +85,11 @@ class PostgreSQLManger(DatabaseManager):
         """
         connect_db will setup a connection to the easydb
         """
-        set_connection_data = self.set_connection_data
-        database = set_connection_data["database"]
-        username = set_connection_data["username"]
-        db_ip_address = set_connection_data["db_ip_address"]
-        password = set_connection_data["password"]
+        connection_data = self.connection_data
+        database = connection_data["database"]
+        username = connection_data["username"]
+        db_ip_address = connection_data["db_ip_address"]
+        password = connection_data["password"]
         try:
             conn = psycopg2.connect(dbname=database,
                                     user=username,

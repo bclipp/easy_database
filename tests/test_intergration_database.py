@@ -17,12 +17,12 @@ def test_postgresqlmanager_connect_disconnect():
     """
     test_connect_disconnect to verify the send_sql method works functionally without a easydb.
     """
-    utils.check_integration_test()
-    dbvars = utils.get_variables()
-    database_manager = db.PostgreSQLManger()
-    database_manager.set_connection_data(dbvars)
-    database_manager.open_conn()
-    database_manager.close_conn()
+utils.check_integration_test()
+dbvars = utils.get_variables()
+database_manager = db.PostgreSQLManger()
+database_manager.set_connection_data(dbvars)
+database_manager.open_conn()
+database_manager.close_conn()
 
 
 def test_postgresqlmanager_receive_sql_fetchall():
