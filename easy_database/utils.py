@@ -14,11 +14,12 @@ class ConfigVars(TypedDict):
     Used to define the dict types in a strict way.
     """
     db_ip_address: str
-    postgres_db: str
-    postgres_user: str
-    postgres_password: str
+    database: str
+    username: str
+    password: str
     table: str
     integration_test: Optional[str]
+    database_type: str
 
 
 def get_variables() -> ConfigVars:
@@ -28,12 +29,12 @@ def get_variables() -> ConfigVars:
     """
     try:
         db_ip_address = os.environ['DB_IP_ADDRESS']
-        database = os.environ['DATABASE']
-        username = os.environ['USERNAME']
-        password = os.environ['PASSWORD']
-        table = os.environ["TABLE"]
-        integration_test = os.environ.get('INTEGRATION_TEST', default=None)
-        database_type = os.environ["DATABASE_TYPE"]
+        database: str = os.environ['DATABASE']
+        username: str = os.environ['USERNAME']
+        password: str = os.environ['PASSWORD']
+        table: str = os.environ["TABLE"]
+        integration_test: Optional[str] = os.environ.get('INTEGRATION_TEST', default=None)
+        database_type: str = os.environ["DATABASE_TYPE"]
     except KeyError:
         raise KeyError("Please verify that the needed env variables are set")
     return {"db_ip_address": db_ip_address,

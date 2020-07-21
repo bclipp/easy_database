@@ -76,9 +76,9 @@ class PostgreSQLManger(DatabaseManager):
         self.conn = None
         self.cursor = None
 
-    def set_connection_data(self, set_connection_data: str):
+    def set_connection_data(self, set_connection_data: dict):
         """set's the connection data"""
-        self.set_connection_data = set_connection_data
+        self.connection_data = set_connection_data
 
     def open_conn(self):
         """
