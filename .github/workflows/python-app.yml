@@ -60,8 +60,8 @@ jobs:
         DATABASE: testing1234
         DB_IP_ADDRESS: 127.0.0.1
     - name: Code Coverage
-        run: |
-          pytest --cov=./
+      run: |
+        pytest --cov=./
 
     - name: PyCharm Python Security Scanner
       uses: tonybaloney/pycharm-security@1.20.1
