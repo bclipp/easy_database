@@ -1,5 +1,5 @@
 """
-This module is used to test the easydb module
+This module is used to test the easy_database module
 """
 
 from unittest.mock import Mock
@@ -63,7 +63,7 @@ def test_postgresqlmanager_receive_sql_fetchall_not_string():
         assert True
 
 
-@patch("easydb.database.psycopg2.extras.execute_batch")
+@patch("easy_database.database.psycopg2.extras.execute_batch")
 def test_postgresqlmanager_df_insert(mock_execute_batch):
     """
         This test is to verify the df_insert
