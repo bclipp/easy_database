@@ -26,13 +26,13 @@ jobs:
     - name: Lint with pylint
       run: |
         # stop the build if pylint is 10 for everything
-        pylint easydb
+        pylint easy_database
         pylint tests
 
     - name: Lint with mypy
       run: |
         # stop the build if pylint is 10 for everything
-        mypy easydb
+        mypy easy_database
         mypy tests
     - name: Unit Test with pytest
       run: |
