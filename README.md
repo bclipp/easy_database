@@ -26,7 +26,9 @@ sudo --preserve-env docker-compose up
 
 python 
 ```
-database_manager = database_factory("postgresql")
+import easy_database as db
+
+database_manager = db.database_factory("postgresql")
 database_manager.set_connection_string("...")
 database_manager.open_conn()
 database_manager.send_sql("SELECT * FROM TEST;")
