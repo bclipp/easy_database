@@ -56,6 +56,13 @@ jobs:
     - name: Code Coverage
       run: |
         pytest --cov=./
+      env:
+        INTEGRATION_TEST: True
+        PASSWORD: testing1234
+        USERNAME: testing1234
+        DATABASE: testing1234
+        DB_IP_ADDRESS: 127.0.0.1
+        TABLE: customers
 
     - name: PyCharm Python Security Scanner
       uses: tonybaloney/pycharm-security@1.20.1
