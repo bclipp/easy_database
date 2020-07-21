@@ -22,13 +22,13 @@ export INTEGRATION_TEST=True
 export DB_IP_ADDRESS=127.0.0.1
 export DATABASE_TYPE=postgresql
 sudo --preserve-env docker-compose up
-
-PASSWORD=testing1234;USER=testing1234;DATABASE=testing1234;INTEGRATION_TEST=true;TABLE=customers;DB_IP_ADDRESS=127.0.0.1;DATABASE_TYPE=postgresql
 ```
 
 python 
 ```
-database_manager = database_factory("postgresql")
+import easy_database.database as db
+
+database_manager = db.database_factory("postgresql")
 database_manager.set_connection_string("...")
 database_manager.open_conn()
 database_manager.send_sql("SELECT * FROM TEST;")
