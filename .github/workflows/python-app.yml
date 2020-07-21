@@ -45,6 +45,10 @@ jobs:
 
     - name: Build the stack
       run: docker-compose up -d
+      env:
+        POSTGRES_PASSWORD: testing1234
+        POSTGRES_USER: testing1234
+        POSTGRES_DB: testing1234
 
     - name: Intergration Test with pytest
       run: |
