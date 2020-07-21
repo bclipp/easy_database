@@ -84,10 +84,10 @@ def test_postgresqlmanager_df_insert_no_conflict():
                                            "state_fips",
                                            "state_code",
                                            "block_pop"])
-        create_fake_table(database_manager)
-        database_manager.df_insert(data_frame,
-                                   table)
-        database_manager.send_sql("DROP TABLE test_customers;")
+    create_fake_table(database_manager)
+    database_manager.df_insert(data_frame,
+                               table)
+    database_manager.send_sql("DROP TABLE test_customers;")
     database_manager.close_conn()
 
 
