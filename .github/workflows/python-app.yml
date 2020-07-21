@@ -58,7 +58,7 @@ jobs:
         PASSWORD: testing1234
         USERNAME: testing1234
         DATABASE: testing1234
-        DB_IP_ADDRESS: 127.0.0.1
+        DB_IP_ADDRESS: localhost
         TABLE: customers
     - name: Code Coverage
       run: |
