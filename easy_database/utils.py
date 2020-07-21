@@ -19,7 +19,7 @@ class ConfigVars(TypedDict):
     password: str
     table: Optional[str]
     integration_test: Optional[str]
-    database_type: str
+    database_type: Optional[str]
 
 
 def get_variables() -> ConfigVars:
@@ -34,7 +34,7 @@ def get_variables() -> ConfigVars:
         password: str = os.environ['PASSWORD']
         table: Optional[str] = os.environ.get('TABLE', default=None)
         integration_test: Optional[str] = os.environ.get('INTEGRATION_TEST', default=None)
-        database_type: str = os.environ["DATABASE_TYPE"]
+        database_type: str = os.environ.get('DATABASE_TYPE', default=None)
     except KeyError:
         raise KeyError("Please verify that the needed env variables are set")
     return {"db_ip_address": db_ip_address,
