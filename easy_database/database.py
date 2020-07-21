@@ -230,6 +230,6 @@ def database_factory(database_type: str) -> DatabaseManager:
     :param database_type:
     :return:
     """
-    if database_type == " postgresql":
+    if database_type == "postgresql":
         return PostgreSQLManger()
     raise BadDatabaseType("The Database is not currently supported.")
