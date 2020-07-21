@@ -51,7 +51,7 @@ jobs:
         PASSWORD: testing1234
         USERNAME: testing1234
         DATABASE: testing1234
-        DB_IP_ADDRESS: localhost
+        DB_IP_ADDRESS: postgres
         TABLE: customers
     - name: Code Coverage
       run: |
