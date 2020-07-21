@@ -32,7 +32,7 @@ def get_variables() -> ConfigVars:
         database: str = os.environ['DATABASE']
         username: str = os.environ['USERNAME']
         password: str = os.environ['PASSWORD']
-        table: str = os.environ["TABLE"]
+        table: Optional[str] = os.environ["TABLE"]
         integration_test: Optional[str] = os.environ.get('INTEGRATION_TEST', default=None)
         database_type: str = os.environ["DATABASE_TYPE"]
     except KeyError:
