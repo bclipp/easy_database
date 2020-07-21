@@ -17,12 +17,12 @@ def test_postgresqlmanager_connect_disconnect():
     """
     test_connect_disconnect to verify the send_sql method works functionally without a easydb.
     """
-utils.check_integration_test()
-dbvars = utils.get_variables()
-database_manager = db.PostgreSQLManger()
-database_manager.set_connection_data(dbvars)
-database_manager.open_conn()
-database_manager.close_conn()
+    utils.check_integration_test()
+    dbvars = utils.get_variables()
+    database_manager = db.PostgreSQLManger()
+    database_manager.set_connection_data(dbvars)
+    database_manager.open_conn()
+    database_manager.close_conn()
 
 
 def test_postgresqlmanager_receive_sql_fetchall():
@@ -35,8 +35,8 @@ def test_postgresqlmanager_receive_sql_fetchall():
     database_manager.set_connection_data(dbvars)
     database_manager.open_conn()
     table = dbvars["table"]
-    data_frame: list = database_manager.receive_sql_fetchall(f"SELECT * FROM {table};")
-    print(data_frame.head())
+    table_data: list = database_manager.receive_sql_fetchall(f"SELECT * FROM {table};")
+    print(table_data)
     database_manager.close_conn()
 
 
@@ -64,7 +64,7 @@ def test_postgresqlmanager_df_insert_no_conflict():
     database_manager.set_connection_data(dbvars)
     table = dbvars["table"]
     database_manager.open_conn()
-    data_frame = pd.DataFrame({"id": [7000, 8000, 9000, 10000],
+    data_frame = pd.DataFrame({"id": [700000, 800000, 900000, 1000000],
                                'first_name': ['brian', 'john', 'mary', 'same'],
                                'last_name': ['brian', 'john', 'mary', 'same'],
                                'email': ['brian', 'john', 'mary', 'same'],
@@ -99,7 +99,7 @@ def test_postgresqlmanager_df_insert_conflict():
     database_manager.set_connection_data(dbvars)
     table = dbvars["table"]
     database_manager.open_conn()
-    data_frame = pd.DataFrame({"id": [7000, 8000, 9000, 10000],
+    data_frame = pd.DataFrame({"id": [9000001, 800001, 2000001, 3000001],
                                'first_name': ['brian', 'john', 'mary', 'same'],
                                'last_name': ['brian', 'john', 'mary', 'same'],
                                'email': ['brian', 'john', 'mary', 'same'],
