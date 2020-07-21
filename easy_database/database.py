@@ -94,11 +94,11 @@ class PostgreSQLManger(DatabaseManager):
             conn = psycopg2.connect(dbname=database,
                                     user=username,
                                     host=db_ip_address,
-                                    password=password,
-                                    cursor_factory=psycopg2.extras.RealDictCursor)
+                                    password=password)
+            # cursor_factory=psycopg2.extras.RealDictCursor)
 
         except psycopg2.DatabaseError as error:
-            self.conn.rollback()
+            print()
             raise error
         self.cursor = conn.cursor()
         self.conn = conn
