@@ -37,6 +37,11 @@ jobs:
     - name: Unit Test with pytest
       run: |
         pytest tests
+      env:
+        POSTGRES_PASSWORD: testing1234
+        POSTGRES_USER: testing1234
+        POSTGRES_DB: testing1234
+        DB_IP_ADDRESS: 127.0.0.1
 
     - name: Build the stack
       run: docker-compose up -d
