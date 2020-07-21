@@ -43,16 +43,9 @@ jobs:
         DATABASE: testing1234
         DB_IP_ADDRESS: 127.0.0.1
 
-    - name: Build the stack
-      run: docker-compose up -d
-      env:
-        PASSWORD: testing1234
-        USER: testing1234
-        DATABASE: testing1234
-
     - name: Integration Test with pytest
       run: |
-         pytest tests
+         docker-compose up -d && pytest tests
       env:
         INTEGRATION_TEST: True
         PASSWORD: testing1234
