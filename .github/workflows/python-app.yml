@@ -50,7 +50,7 @@ jobs:
         USER: testing1234
         DATABASE: testing1234
 
-    - name: Intergration Test with pytest
+    - name: Integration Test with pytest
       run: |
          pytest tests
       env:
