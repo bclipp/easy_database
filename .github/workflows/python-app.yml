@@ -38,9 +38,9 @@ jobs:
       run: |
         pytest tests
       env:
-        POSTGRES_PASSWORD: testing1234
-        POSTGRES_USER: testing1234
-        POSTGRES_DB: testing1234
+        PASSWORD: testing1234
+        USERNAME: testing1234
+        DATABASE: testing1234
         DB_IP_ADDRESS: 127.0.0.1
 
     - name: Build the stack
@@ -51,9 +51,9 @@ jobs:
          pytest tests
       env:
         INTEGRATION_TEST: True
-        POSTGRES_PASSWORD: testing1234
-        POSTGRES_USER: testing1234
-        POSTGRES_DB: testing1234
+        PASSWORD: testing1234
+        USERNAME: testing1234
+        DATABASE: testing1234
         DB_IP_ADDRESS: 127.0.0.1
 
     - name: PyCharm Python Security Scanner
