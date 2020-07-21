@@ -17,7 +17,7 @@ class ConfigVars(TypedDict):
     database: str
     username: str
     password: str
-    table: str
+    table: Optional[str]
     integration_test: Optional[str]
     database_type: str
 
