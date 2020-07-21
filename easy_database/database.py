@@ -216,3 +216,20 @@ def check_data_frame(data_frame: pd.DataFrame):
     """
     if not isinstance(data_frame, pd.DataFrame):
         raise NotDataFrame("Query must be a valid DataFrame")
+
+
+class BadDatabaseType(Exception):
+    """
+    This is used for a custom Exception
+    """
+
+
+def database_factory(database_type: str) -> DatabaseManager:
+    """
+
+    :param database_type:
+    :return:
+    """
+    if database_type == " postgresql":
+        return PostgreSQLManger()
+    raise BadDatabaseType("The Database is not currently supported.")
