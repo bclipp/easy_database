@@ -54,7 +54,10 @@ def check_integration_test():
     """
     config: ConfigVars = get_variables()
     if config.get("integration_test") is None:
+        print("Not an Integration Test")
         pytest.skip("Not an Integration Test")
+    else:
+        print("running unit test")
 
 
 class BadDatabaseType(Exception):
