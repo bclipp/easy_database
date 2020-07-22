@@ -1,7 +1,6 @@
 """
-This module is used to test the easy_database module
+This module is used to test the database module
 """
-
 from unittest.mock import Mock
 from unittest.mock import patch
 
@@ -109,4 +108,22 @@ def test_postgresqlmanager_df_insert_table_not_string():
     try:
         database_manager.df_insert(data_frame, 2)
     except db.NotStr:
+        assert True
+
+
+def test_database_factory_good():
+    """
+    This test is to verify the database_factor accepts pg and returns correct object
+    """
+    database_manager: db.DatabaseManager = db.database_factory("postgresql")
+    assert isinstance(database_manager, db.PostgreSQLManger)
+
+
+def test_database_factory_bad():
+    """
+    This test is to verify the database_factor accepts pg and returns correct object
+    """
+    try:
+        db.database_factory("I'm not a database that is supported")
+    except db.BadDatabaseType:
         assert True
